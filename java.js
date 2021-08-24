@@ -15,7 +15,7 @@ let leftProduct = null;
 let middleProduct = null;
 let rightProduct = null;
 
-let rounds = 25;
+let rounds = 5;
 // GLOBAL FUNCTIONS
 function randomProduct() {
   let leftIndex = Math.floor(Math.random() * Product.allProducts.length);
