@@ -68,12 +68,16 @@ function handleClick(event) {
       validTargets[2].votes++;
     }
     if (rounds === 0) {
-
+      allProductsSectionElem.removeEventListener('click', handleClick);
+      alert('we are out of votes');
+      renderResults();
+    } else {
+      renderThreeProducts();
     }
   }
 }
 
-function renderResults () {
+function renderResults() {
   const resultsUlElem = document.getElementById('results');
   resultsUlElem.innerHTML= '';
   for (let product of Product.allProducts) {
@@ -114,7 +118,7 @@ Product.prototype.renderSingleProduct = function (imageElem) {
 Product.allProducts = [];
 
 // LISTENERS
-// productsSectionElem.addEventListener('click', clickHandler);
+allProductsSectionElem.addEventListener('click', clickHandler);
 
 // FUNCTION CALLS
 makeAProduct('Bag', './images/bag.jpg');
@@ -158,4 +162,4 @@ Product.allProducts.push(new Product('watercan', './images/water-can.jpg'));
 Product.allProducts.push(new Product('wineglass', './images/wine-glass.jpg'));
 
 
-randomProduct();
+renderThreeProducts();
