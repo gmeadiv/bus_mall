@@ -9,7 +9,7 @@ const middleProductImgElem = document.getElementById('middle_product_img');
 const middleProductPElem = document.getElementById('middle_product_p');
 const rightProductImgElem = document.getElementById('right_product_img');
 const rightProductPElem = document.getElementById('right_product_p');
-const allProductsSectionElem = document.getElementById('all_products')
+const allProductsSectionElem = document.getElementById('all_products');
 
 let leftProduct = null; 
 let middleProduct = null;
@@ -18,6 +18,15 @@ let rightProduct = null;
 let rounds = 5;
 
 var ctx = document.getElementById('productChart').getContext('2d');
+
+// CONSTRUCTOR FUNCTIONS
+function Product(name, image) {
+  this.name = name;
+  this.image = image;
+  this.views = 0;
+  this.votes = 0;
+}
+Product.allProducts = [];
 
 
 // PROTOTYPES
@@ -137,17 +146,6 @@ function renderChart() {
   // });
 }
 
-// CONSTRUCTOR FUNCTIONS
-function Product(name, image) {
-  this.name = name;
-  this.image = image;
-  this.views = 0;
-  this.votes = 0;
-}
-Product.allProducts = [];
-
-// renderThreeProducts(leftProduct, middleProduct, rightProduct);
-
 // LISTENERS
 allProductsSectionElem.addEventListener('click', handleClick);
 
@@ -193,4 +191,3 @@ Product.allProducts.push(new Product('watercan', 'images/water-can.jpg'));
 Product.allProducts.push(new Product('wineglass', 'images/wine-glass.jpg'));
 
 randomProduct();
-// renderThreeProducts();
