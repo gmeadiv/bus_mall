@@ -38,11 +38,15 @@ Product.prototype.renderSingleProduct = function (img, p) {
 
 
 // GLOBAL FUNCTIONS
-function renderThreeProducts() {
-  leftProduct.renderSingleProduct(leftProductImgElem, leftProductPElem);
-  middleProduct.renderSingleProduct(middleProductImgElem, middleProductPElem);
-  rightProduct.renderSingleProduct(rightProductImgElem, rightProductPElem);
+function makeAProduct(name, image) {
+  Product.allProducts.push(new Product(name, image));
 }
+
+// function renderThreeProducts() {
+//   leftProduct.renderSingleProduct(leftProductImgElem, leftProductPElem);
+//   middleProduct.renderSingleProduct(middleProductImgElem, middleProductPElem);
+//   rightProduct.renderSingleProduct(rightProductImgElem, rightProductPElem);
+// }
 
 function randomProduct() {
   const unavailableItem = [leftProduct, middleProduct, rightProduct];
@@ -60,7 +64,20 @@ function randomProduct() {
     let rightIndex = Math.floor(Math.random() * Product.allProducts.length);
     rightProduct = Product.allProducts[rightIndex];
   }
-  renderThreeProducts();
+  // renderThreeProducts();
+  leftProduct.renderSingleProduct(leftProductImgElem, leftProductPElem);
+  middleProduct.renderSingleProduct(middleProductImgElem, middleProductPElem);
+  rightProduct.renderSingleProduct(rightProductImgElem, rightProductPElem);
+}
+
+function renderResults() {
+  const resultsUlElem = document.getElementById('results');
+  resultsUlElem.innerHTML= '';
+  for (let product of Product.allProducts) {
+    const liElem = document.createElement('li');
+    liElem.textContent = `${product.name} was viewed ${product.views} times and received ${product.votes} votes.`;
+    resultsUlElem.appendChild(liElem);
+  }
 }
 
 function handleClick(event) {
@@ -74,42 +91,28 @@ function handleClick(event) {
       validTargets[1].votes++;
     } else {
       validTargets[2].votes++;
-    } 
+    }
     if (rounds === 0) {
       allProductsSectionElem.removeEventListener('click', handleClick);
       alert('we are out of votes');
-      renderChart();
+      // renderChart();
       renderResults();
     } else {
       randomProduct();
     }
   }
-} 
-
-function renderResults() {
-  const resultsUlElem = document.getElementById('results');
-  resultsUlElem.innerHTML= '';
-  for (let product of Product.allProducts) {
-    const liElem = document.createElement('li');
-    liElem.textContent = `${product.name} was viewed ${product.views} times and received ${product.votes} votes.`;
-    resultsUlElem.appendChild(liElem);
-  }
 }
 
-function makeAProduct(name, image) {
-  let myProduct = new Product(name, image);
-  Product.allProducts.push(myProduct);
-}
 
-function renderChart() {
-  const everyProduct = [];
-  const everyView = [];
-  const everyVote = [];
-  for (let product of Product.allProducts) {
-    everyProduct.push(product.name);
-    everyView.push(product.views);
-    everyVote.push(product.votes);
-  }
+// function renderChart() {
+//   const everyProduct = [];
+//   const everyView = [];
+//   const everyVote = [];
+//   for (let product of Product.allProducts) {
+//     everyProduct.push(product.name);
+//     everyView.push(product.views);
+//     everyVote.push(product.votes);
+//   }
   // let productChart = new Chart(ctx, {
   //     type: 'bar',
   //     data: {
@@ -144,7 +147,7 @@ function renderChart() {
   //         }
   //     }
   // });
-}
+// }
 
 // LISTENERS
 allProductsSectionElem.addEventListener('click', handleClick);
